@@ -6992,7 +6992,7 @@ app.use(_express2.default.static('public'));
 app.get('/', function (req, res) {
 	var content = (0, _server.renderToString)(_react2.default.createElement(_Home2.default, null));
 
-	var html = '\n\t\t<html>\n\t\t<head>\n\t\t\n\t\t</head>\n\t\t<body>\n\t\t\t<div>' + content + '</div>\n\t\t\t<script src="bundle.js"></script>\n\t\t</body>\n\t\t</html>\n\t';
+	var html = '\n\t\t<html>\n\t\t<head>\n\t\t\n\t\t</head>\n\t\t<body>\n\t\t\t<div id="root">' + content + '</div>\n\t\t\t<script src="bundle.js"></script>\n\t\t</body>\n\t\t</html>\n\t';
 
 	res.send(html);
 });
