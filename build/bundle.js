@@ -294,7 +294,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(2);
 
-var _usersReducer = __webpack_require__(16);
+var _usersReducer = __webpack_require__(13);
 
 var _usersReducer2 = _interopRequireDefault(_usersReducer);
 
@@ -305,7 +305,31 @@ exports.default = (0, _redux.combineReducers)({
 });
 
 /***/ }),
-/* 13 */,
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _actions = __webpack_require__(14);
+
+exports.default = function () {
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	var action = arguments[1];
+
+	switch (action.type) {
+		case _actions.FETCH_USERS:
+			return action.payload.data;
+		default:
+			return state;
+	}
+};
+
+/***/ }),
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -365,31 +389,6 @@ var fetchUsers = exports.fetchUsers = function fetchUsers() {
 /***/ (function(module, exports) {
 
 module.exports = require("axios");
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _actions = __webpack_require__(14);
-
-exports.default = function () {
-	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-	var action = arguments[1];
-
-	switch (action.type) {
-		case _actions.FETCH_USERS:
-			return action.payload.data;
-		default:
-			return state;
-	}
-};
 
 /***/ })
 /******/ ]);
