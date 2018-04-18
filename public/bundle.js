@@ -38117,8 +38117,8 @@ function mapStateToProps(state) {
 	return { users: state.users };
 }
 
-function loadData() {
-	console.log('I am trying to load data');
+function loadData(store) {
+	return store.dispatch((0, _actions.fetchUsers)());
 }
 
 exports.loadData = loadData;
