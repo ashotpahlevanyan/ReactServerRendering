@@ -11,7 +11,6 @@ import reducers from './reducers';
 
 const store = createStore(reducers, {}, applyMiddleware(thunk));
 
-
 ReactDOM.hydrate(
 	<Provider store={store}>
 		<BrowserRouter>
