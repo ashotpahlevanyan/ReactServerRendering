@@ -291,7 +291,7 @@ exports.default = function (req, store) {
 		)
 	));
 
-	return '\n\t\t<html>\n\t\t<head>\n\t\t\n\t\t</head>\n\t\t<body>\n\t\t\t<div id="root">' + content + '</div>\n\t\t\t<script src="bundle.js"></script>\n\t\t</body>\n\t\t</html>\n\t';
+	return '\n\t\t<html>\n\t\t<head>\n\t\t\n\t\t</head>\n\t\t<body>\n\t\t\t<div id="root">' + content + '</div>\n\t\t\t\n\t\t\t<script>\n\t\t\t\twindow.INITIAL_STATE = ' + JSON.stringify(store.getState()) + '\t\n\t\t\t</script>\n\t\t\t<script src="bundle.js"></script>\n\t\t</body>\n\t\t</html>\n\t';
 };
 
 /***/ }),
