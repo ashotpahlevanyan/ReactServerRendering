@@ -270,6 +270,10 @@ var _reactRedux = __webpack_require__(3);
 
 var _reactRouterConfig = __webpack_require__(1);
 
+var _serializeJavascript = __webpack_require__(23);
+
+var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
+
 var _Routes = __webpack_require__(2);
 
 var _Routes2 = _interopRequireDefault(_Routes);
@@ -291,7 +295,7 @@ exports.default = function (req, store) {
 		)
 	));
 
-	return '\n\t\t<html>\n\t\t<head>\n\t\t\n\t\t</head>\n\t\t<body>\n\t\t\t<div id="root">' + content + '</div>\n\t\t\t\n\t\t\t<script>\n\t\t\t\twindow.INITIAL_STATE = ' + JSON.stringify(store.getState()) + '\t\n\t\t\t</script>\n\t\t\t<script src="bundle.js"></script>\n\t\t</body>\n\t\t</html>\n\t';
+	return '\n\t\t<html>\n\t\t<head>\n\t\t\n\t\t</head>\n\t\t<body>\n\t\t\t<div id="root">' + content + '</div>\n\t\t\t\n\t\t\t<script>\n\t\t\t\twindow.INITIAL_STATE = ' + (0, _serializeJavascript2.default)(store.getState()) + '\t\n\t\t\t</script>\n\t\t\t<script src="bundle.js"></script>\n\t\t</body>\n\t\t</html>\n\t';
 };
 
 /***/ }),
@@ -515,6 +519,12 @@ exports.default = {
 	loadData: loadData,
 	component: (0, _reactRedux.connect)(mapStateToProps, { fetchUsers: _actions.fetchUsers })(UsersList)
 };
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports) {
+
+module.exports = require("serialize-javascript");
 
 /***/ })
 /******/ ]);
