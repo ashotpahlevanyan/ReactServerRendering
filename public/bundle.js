@@ -38862,6 +38862,10 @@ var _react = __webpack_require__(6);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _App = __webpack_require__(479);
+
+var _App2 = _interopRequireDefault(_App);
+
 var _HomePage = __webpack_require__(475);
 
 var _HomePage2 = _interopRequireDefault(_HomePage);
@@ -38872,11 +38876,13 @@ var _UsersListPage2 = _interopRequireDefault(_UsersListPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = [_extends({}, _HomePage2.default, {
-	path: '/',
-	exact: true
-}), _extends({}, _UsersListPage2.default, {
-	path: '/users'
+exports.default = [_extends({}, _App2.default, {
+	routes: [_extends({}, _HomePage2.default, {
+		path: '/',
+		exact: true
+	}), _extends({}, _UsersListPage2.default, {
+		path: '/users'
+	})]
 })];
 
 /***/ }),
@@ -39051,6 +39057,44 @@ exports.default = function () {
 		default:
 			return state;
 	}
+};
+
+/***/ }),
+/* 479 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterConfig = __webpack_require__(449);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var App = function App(_ref) {
+	var route = _ref.route;
+
+	return _react2.default.createElement(
+		'div',
+		null,
+		_react2.default.createElement(
+			'h1',
+			null,
+			'I am a header'
+		),
+		(0, _reactRouterConfig.renderRoutes)(route.routes)
+	);
+};
+
+exports.default = {
+	component: App
 };
 
 /***/ })
