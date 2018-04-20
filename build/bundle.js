@@ -213,7 +213,7 @@ var fetchCurrentUser = exports.fetchCurrentUser = function fetchCurrentUser() {
 };
 
 var FETCH_ADMINS = exports.FETCH_ADMINS = 'fetch_admins';
-var fetchAdmin = exports.fetchAdmin = function fetchAdmin() {
+var fetchAdmins = exports.fetchAdmins = function fetchAdmins() {
 	return function () {
 		var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch, getState, api) {
 			var res;
