@@ -309,9 +309,15 @@ app.get('*', function (req, res) {
 		var route = _ref.route;
 
 		return route.loadData ? route.loadData(store) : null;
+	}).map(function (promise) {
+		if (promise) {
+			return new Promise(function (resolve, reject) {
+				promise.then(resolve).catch(resolve);
+			});
+		}
 	});
 
-	var render = function render() {
+	Promise.all(promises).then(function () {
 		var context = {};
 		var content = (0, _renderer2.default)(req, store, context);
 
@@ -320,9 +326,7 @@ app.get('*', function (req, res) {
 		}
 
 		res.send(content);
-	};
-
-	Promise.all(promises).then(render).catch(render);
+	});
 });
 
 app.listen(3000, function () {
