@@ -92,11 +92,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _HomePage = __webpack_require__(9);
+var _HomePage = __webpack_require__(10);
 
 var _HomePage2 = _interopRequireDefault(_HomePage);
 
-var _UsersListPage = __webpack_require__(10);
+var _UsersListPage = __webpack_require__(11);
 
 var _UsersListPage2 = _interopRequireDefault(_UsersListPage);
 
@@ -127,6 +127,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+// use axios if you want to make calls to other api's like instagram, facebook...
+// but if you make a call to your api,
+// it is better to use the configured api instead like we did
 
 var FETCH_USERS = exports.FETCH_USERS = 'fetch_users';
 var fetchUsers = exports.fetchUsers = function fetchUsers() {
@@ -184,7 +188,7 @@ var _express2 = _interopRequireDefault(_express);
 
 var _reactRouterConfig = __webpack_require__(1);
 
-var _expressHttpProxy = __webpack_require__(20);
+var _expressHttpProxy = __webpack_require__(9);
 
 var _expressHttpProxy2 = _interopRequireDefault(_expressHttpProxy);
 
@@ -206,14 +210,14 @@ var app = (0, _express2.default)();
 
 app.use('/api', (0, _expressHttpProxy2.default)('http://react-ssr-api.herokuapp.com', {
 	proxyReqOptDecorator: function proxyReqOptDecorator(opts) {
-		opts.header['x-forward-host'] = 'localhost:3000';
+		opts.headers['x-forwarded-host'] = 'localhost:3000';
 		return opts;
 	}
 }));
 app.use(_express2.default.static('public'));
 
 app.get('*', function (req, res) {
-	var store = (0, _createStore2.default)();
+	var store = (0, _createStore2.default)(req);
 
 	var promises = (0, _reactRouterConfig.matchRoutes)(_Routes2.default, req.path).map(function (_ref) {
 		var route = _ref.route;
@@ -244,6 +248,12 @@ module.exports = require("express");
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports) {
+
+module.exports = require("express-http-proxy");
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -283,7 +293,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -369,7 +379,6 @@ exports.default = {
 };
 
 /***/ }),
-/* 11 */,
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -455,14 +464,23 @@ var _reduxThunk = __webpack_require__(17);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reducers = __webpack_require__(18);
+var _axios = __webpack_require__(18);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _reducers = __webpack_require__(19);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function () {
-	var store = (0, _redux.createStore)(_reducers2.default, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default));
+exports.default = function (req) {
+	var axiosInstance = _axios2.default.create({
+		baseURL: 'http://react-ssr-api.herokuapp.com',
+		headers: { cookie: req.get('cookie') || '' }
+	});
+
+	var store = (0, _redux.createStore)(_reducers2.default, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default.withExtraArgument(axiosInstance)));
 	return store;
 };
 
@@ -474,6 +492,12 @@ module.exports = require("redux-thunk");
 
 /***/ }),
 /* 18 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
+
+/***/ }),
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -485,7 +509,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(5);
 
-var _usersReducer = __webpack_require__(19);
+var _usersReducer = __webpack_require__(20);
 
 var _usersReducer2 = _interopRequireDefault(_usersReducer);
 
@@ -496,7 +520,7 @@ exports.default = (0, _redux.combineReducers)({
 });
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -519,12 +543,6 @@ exports.default = function () {
 			return state;
 	}
 };
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports) {
-
-module.exports = require("express-http-proxy");
 
 /***/ })
 /******/ ]);
