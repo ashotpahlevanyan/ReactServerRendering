@@ -711,6 +711,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(2);
 
+var _reactHelmet = __webpack_require__(28);
+
 var _actions = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -752,6 +754,16 @@ var UsersList = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				null,
+				_react2.default.createElement(
+					_reactHelmet.Helmet,
+					null,
+					_react2.default.createElement(
+						'title',
+						null,
+						'Users App'
+					),
+					_react2.default.createElement('meta', { property: 'og:title', content: 'Users App' })
+				),
 				'Here is the list of users',
 				_react2.default.createElement(
 					'ul',
@@ -838,6 +850,8 @@ var _serializeJavascript = __webpack_require__(20);
 
 var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
 
+var _reactHelmet = __webpack_require__(28);
+
 var _Routes = __webpack_require__(5);
 
 var _Routes2 = _interopRequireDefault(_Routes);
@@ -859,7 +873,9 @@ exports.default = function (req, store, context) {
 		)
 	));
 
-	return '\n\t\t<html>\n\t\t<head>\n\t\t\t    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">\n\t\t</head>\n\t\t<body>\n\t\t\t<div id="root">' + content + '</div>\n\t\t\t\n\t\t\t<script>\n\t\t\t\twindow.INITIAL_STATE = ' + (0, _serializeJavascript2.default)(store.getState()) + '\t\n\t\t\t</script>\n\t\t\t<script src="bundle.js"></script>\n\t\t</body>\n\t\t</html>\n\t';
+	var helmet = _reactHelmet.Helmet.renderStatic();
+
+	return '\n\t\t<html>\n\t\t<head>\n\t\t\t\t\t' + helmet.title.toString() + '\n\t\t\t\t\t' + helmet.meta.toString() + '\n\t\t\t    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">\n\t\t</head>\n\t\t<body>\n\t\t\t<div id="root">' + content + '</div>\n\t\t\t\n\t\t\t<script>\n\t\t\t\twindow.INITIAL_STATE = ' + (0, _serializeJavascript2.default)(store.getState()) + '\t\n\t\t\t</script>\n\t\t\t<script src="bundle.js"></script>\n\t\t</body>\n\t\t</html>\n\t';
 };
 
 /***/ }),
@@ -1032,6 +1048,12 @@ exports.default = function () {
 			return state;
 	}
 };
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-helmet");
 
 /***/ })
 /******/ ]);
